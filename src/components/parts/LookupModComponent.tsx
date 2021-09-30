@@ -1,4 +1,3 @@
-   
 import React from "react";
 import { TextField, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type LookupModComponentArgs = {
-    setStore: React.Dispatch<React.SetStateAction<LookUpTables>>;
-    selectedChoice: LookUpTableTypes;
-    targetKey: string;
-    arrayIndex: number;
-    displayValue: string;
-}
+  setStore: React.Dispatch<React.SetStateAction<LookUpTables>>;
+  selectedChoice: LookUpTableTypes;
+  targetKey: string;
+  arrayIndex: number;
+  displayValue: string;
+};
 
 export default function LookupModComponent({
   setStore,
@@ -52,8 +51,8 @@ export default function LookupModComponent({
               prevStore,
               [selectedChoice, targetKey],
               arrayIndex,
-              value
-            )
+              value,
+            ),
           );
         }}
       />
@@ -67,8 +66,8 @@ export default function LookupModComponent({
             deleteNestedValueInList(
               prevStore,
               [selectedChoice, targetKey],
-              arrayIndex
-            )
+              arrayIndex,
+            ),
           )
         }
       />

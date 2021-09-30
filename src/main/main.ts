@@ -4,8 +4,13 @@ import installExtension, {
 } from "electron-devtools-installer";
 import Excel from "exceljs";
 import { txType } from "./scraper/constants";
-import { getAreaList, getUsageList, makeUsagePriceDict, setUpResidentialToken } from "./scraper/utils";
-import {prepareSheet} from "./scraper/wbCreators"
+import {
+  getAreaList,
+  getUsageList,
+  makeUsagePriceDict,
+  setUpResidentialToken,
+} from "./scraper/utils";
+import { prepareSheet } from "./scraper/wbCreators";
 import { getLookUpTables, saveLookUpTables } from "./scraper/appStorage";
 import path from "path";
 
@@ -40,7 +45,7 @@ const createWindow = () => {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    icon: path.resolve(__dirname,'../../public/logo_.ico')
+    icon: path.resolve(__dirname, "../../public/logo_.ico"),
   });
 
   // and load the index.html of the app.
@@ -57,9 +62,9 @@ const createWindow = () => {
     mainWindow = null;
   });
 
-  mainWindow.once('ready-to-show', () => {
-    mainWindow?.show()
-  })
+  mainWindow.once("ready-to-show", () => {
+    mainWindow?.show();
+  });
 };
 
 ipcMain.on("select-dirs", async () => {
@@ -93,18 +98,19 @@ ipcMain.on("parameters:selected", async (_, params) => {
         endDate,
         resultWbName,
         modeSelection,
-        rawResultPath
+        rawResultPath,
       } = params;
-      const resultWbPath = path.join(rawResultPath, resultWbName)
+      const resultWbPath = path.join(rawResultPath, resultWbName);
       const token = await setUpResidentialToken();
-  
+
       const wb = new Excel.Workbook();
       const targetWb = await wb.xlsx.readFile(filename);
       const targetSheet = targetWb.worksheets[0];
       let rowIndex = 32;
-  
+
       while (!!targetSheet.getRow(rowIndex).getCell("H").value) {
-        const targetPropertyName = targetSheet.getCell(`G${rowIndex}`).value as string;
+        const targetPropertyName = targetSheet.getCell(`G${rowIndex}`)
+          .value as string;
         const areaList = getAreaList({ ws: targetSheet, rowIndex });
         const usages = getUsageList({ ws: targetSheet, rowIndex, mainWindow });
         const usagePriceDict = makeUsagePriceDict({
@@ -113,12 +119,12 @@ ipcMain.on("parameters:selected", async (_, params) => {
           usages,
           mainWindow,
         });
-  
+
         for (const usage of usages) {
           for (const t of txType) {
             if (
               Object.values(usagePriceDict[usage][t]).every(
-                (v:any) => !(v === null || isNaN(v))
+                (v: any) => !(v === null || isNaN(v)),
               )
             ) {
               const isCommercial = usage === "Commercial" || usage === "Office";
@@ -143,21 +149,20 @@ ipcMain.on("parameters:selected", async (_, params) => {
             }
           }
         }
-  
+
         rowIndex += 1;
       }
-  
+
       mainWindow.webContents.send("data:constructed");
     } catch (err) {
       mainWindow.webContents.send(
         "error:push",
-        `Error: ${err}! Please check your excel is valid and try again!`
+        `Error: ${err}! Please check your excel is valid and try again!`,
       );
       mainWindow.webContents.send("data:constructed");
     }
   }
 });
-
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

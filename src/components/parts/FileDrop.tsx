@@ -1,4 +1,3 @@
-   
 import React, { useState } from "react";
 import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
 import { Paper, RootRef, Typography } from "@material-ui/core";
@@ -29,14 +28,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type FileDropProps = {
-    onDrop: (<T extends File>(acceptedFiles: T[], fileRejections: FileRejection[], event: DropEvent) => void) | undefined
-}
+  onDrop:
+    | (<T extends File>(
+        acceptedFiles: T[],
+        fileRejections: FileRejection[],
+        event: DropEvent,
+      ) => void)
+    | undefined;
+};
 
-function FileDrop({ onDrop }: FileDropProps) : JSX.Element {
+function FileDrop({ onDrop }: FileDropProps): JSX.Element {
   const [hovered, setHovered] = useState(false);
   const classes = useStyles();
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop
+    onDrop,
   });
   const { ref, ...rootProps } = getRootProps();
 

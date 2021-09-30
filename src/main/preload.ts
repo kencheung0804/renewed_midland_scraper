@@ -1,12 +1,12 @@
-import {ipcRenderer, IpcRenderer} from "electron";
+import { ipcRenderer, IpcRenderer } from "electron";
 
 declare global {
-    interface Window {
-        ipcRenderer: IpcRenderer;
-    }
+  interface Window {
+    ipcRenderer: IpcRenderer;
+  }
 }
 
-window.ipcRenderer = ipcRenderer
+window.ipcRenderer = ipcRenderer;
 declare global {
   const MAIN_WINDOW_WEBPACK_ENTRY: string;
 }

@@ -12,19 +12,18 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 type ConstructionModalProps = {
-    constructModalOpen: boolean;
-    errorMessages: string[];
-    loading:boolean;
-    setConstructModalOpen: (value: boolean) => void;
-}
-
+  constructModalOpen: boolean;
+  errorMessages: string[];
+  loading: boolean;
+  setConstructModalOpen: (value: boolean) => void;
+};
 
 export default function ConstructionModal({
   constructModalOpen,
   errorMessages,
   loading,
-  setConstructModalOpen
-}: ConstructionModalProps) : JSX.Element {
+  setConstructModalOpen,
+}: ConstructionModalProps): JSX.Element {
   const classes = useStyles();
 
   return (
@@ -54,34 +53,34 @@ export default function ConstructionModal({
   );
 }
 
-const useStyles = makeStyles((theme:Theme) => ({
-    backdrop: { zIndex: 1000000 },
-    paper: {
-      width: "50%",
-      height: "80%",
-      backgroundColor: "white",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "space-around",
-      boxSizing: "border-box",
-      padding: 20,
-      paddingLeft: 10,
-      paddingRight: 10,
-    },
-    errorBox: {
-      width: "100%",
-      height: "70%",
-      backgroundColor: theme.palette.common.black,
-      padding: 20,
-      borderRadius: 10,
-      paddingLeft: 20,
-      paddingRight: 20,
-      boxSizing: "border-box",
-      overflowWrap: "break-word",
-      overflowY: "scroll",
-    },
-    typography: {
-      color: theme.palette.common.white,
-    },
-  }));
+const useStyles = makeStyles((theme: Theme) => ({
+  backdrop: { zIndex: 1000000 },
+  paper: {
+    width: "50%",
+    height: "80%",
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
+    boxSizing: "border-box",
+    padding: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  errorBox: {
+    width: "100%",
+    height: "70%",
+    backgroundColor: theme.palette.common.black,
+    padding: 20,
+    borderRadius: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    boxSizing: "border-box",
+    overflowWrap: "break-word",
+    overflowY: "scroll",
+  },
+  typography: {
+    color: theme.palette.common.white,
+  },
+}));

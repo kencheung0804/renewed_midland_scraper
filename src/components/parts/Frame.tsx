@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type FrameProps = {
-    children: JSX.Element | JSX.Element[] | any[];
-    modal?: JSX.Element;
-}
+  children: JSX.Element | JSX.Element[] | any[];
+  modal?: JSX.Element;
+};
 
-function Frame({ children, modal }: FrameProps):JSX.Element {
+function Frame({ children, modal }: FrameProps): JSX.Element {
   const classes = useStyles();
   return (
     <React.Fragment>

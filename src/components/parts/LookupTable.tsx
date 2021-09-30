@@ -35,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type LookupTableArgs = {
-    setStore: React.Dispatch<React.SetStateAction<LookUpTables>>;
-    selectedChoice: LookUpTableTypes;
-    selectedTable: any;
-}
+  setStore: React.Dispatch<React.SetStateAction<LookUpTables>>;
+  selectedChoice: LookUpTableTypes;
+  selectedTable: any;
+};
 
 export default function LookupTable({
   selectedTable,
@@ -49,7 +49,7 @@ export default function LookupTable({
   return (
     <Box className={classes.container}>
       {Object.keys(selectedTable)
-        .sort((a:any, b:any) => a - b)
+        .sort((a: any, b: any) => a - b)
         .map((key, index) => {
           return (
             <React.Fragment key={index}>
@@ -73,6 +73,7 @@ export default function LookupTable({
                       />
                     );
                   })}
+
                   <AddCircleIcon
                     color="primary"
                     fontSize="large"
@@ -82,8 +83,8 @@ export default function LookupTable({
                         addNestedValueInList(
                           prevStore,
                           [selectedChoice, key],
-                          ""
-                        )
+                          "",
+                        ),
                       )
                     }
                   />

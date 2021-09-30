@@ -1,11 +1,19 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { hot } from "react-hot-loader/root";
 import moment, { Moment } from "moment";
 import acceptedMimeTypes from "../utils/acceptedMimeTypes";
-import "./style.css";
 import Frame from "./parts/Frame";
 import ConstructionModal from "./parts/ConstructionModal";
-import { Box, Button, Chip, FormControlLabel, makeStyles, Switch, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Chip,
+  FormControlLabel,
+  makeStyles,
+  Switch,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentPicker from "./parts/MomentPicker";
 import MomentUtils from "@date-io/moment";
@@ -14,8 +22,8 @@ import FileDrop from "./parts/FileDrop";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
 function App() {
-  const electron = window.require('electron')
-  const ipcRenderer = electron.ipcRenderer
+  const electron = window.require("electron");
+  const ipcRenderer = electron.ipcRenderer;
   const classes = useStyles();
   const [notSupportedOpenBar, setNotSupportedOpenBar] = useState(false);
   const [errorMessages, setErrorMessages] = useState(["Loading..."]);
@@ -23,19 +31,24 @@ function App() {
   const mode = modeSelection ? "multiple" : "single";
   const [loading, setLoading] = useState(false);
   const [constructModalOpen, setConstructModalOpen] = useState(false);
-  const [selectedExcelFile, setSelectedExcelFile] = useState<string| null>(null);
-  const [startDate, setStartDate] = useState<Moment|MaterialUiPickersDate>(moment().startOf("month"));
-  const [endDate, setEndDate] = useState<Moment|MaterialUiPickersDate>(moment().startOf("month"));
+  const [selectedExcelFile, setSelectedExcelFile] = useState<string | null>(
+    null,
+  );
+  const [startDate, setStartDate] = useState<Moment | MaterialUiPickersDate>(
+    moment().startOf("month"),
+  );
+  const [endDate, setEndDate] = useState<Moment | MaterialUiPickersDate>(
+    moment().startOf("month"),
+  );
   const [resultWbPath, setResultWbPath] = useState<string | null>(null);
   const [resultWbName, setResultWbName] = useState("");
 
-
   useEffect(() => {
     const setNotLoading = () => setLoading(false);
-    const pushNewError = (e:Electron.IpcRendererEvent , item:string) => {
+    const pushNewError = (e: Electron.IpcRendererEvent, item: string) => {
       setErrorMessages((prevMessages) => [...prevMessages, item]);
     };
-    const resultWbPathChosen = (e:Electron.IpcRendererEvent, item: string) => {
+    const resultWbPathChosen = (e: Electron.IpcRendererEvent, item: string) => {
       if (item.length) {
         setResultWbPath(item);
       }
@@ -47,7 +60,7 @@ function App() {
       ipcRenderer.removeListener("data:constructed", setNotLoading);
       ipcRenderer.removeListener("error:push", pushNewError);
     };
-  }, [ipcRenderer])
+  }, [ipcRenderer]);
 
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -58,7 +71,7 @@ function App() {
         setNotSupportedOpenBar(true);
       }
     },
-    [setSelectedExcelFile]
+    [setSelectedExcelFile],
   );
 
   const sendFileToBackend = useCallback(() => {
@@ -142,10 +155,14 @@ function App() {
       )}
       <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
         <Box className={classes.dateBox}>
-          <Box style={{marginRight: 20}}>
-          <MomentPicker
-            {...{ date: startDate, setDate: setStartDate, label: "Start Date" }}
-          />
+          <Box style={{ marginRight: 20 }}>
+            <MomentPicker
+              {...{
+                date: startDate,
+                setDate: setStartDate,
+                label: "Start Date",
+              }}
+            />
           </Box>
           <MomentPicker
             {...{ date: endDate, setDate: setEndDate, label: "End Date" }}
